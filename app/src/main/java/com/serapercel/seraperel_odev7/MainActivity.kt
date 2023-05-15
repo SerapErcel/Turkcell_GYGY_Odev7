@@ -4,14 +4,12 @@ import android.app.DatePickerDialog
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.util.Log
 import android.view.View
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
 import android.widget.ListView
 import android.widget.Toast
-import androidx.core.view.get
 import com.serapercel.seraperel_odev7.database.DB
 import com.serapercel.seraperel_odev7.model.Note
 import java.util.Calendar
@@ -50,9 +48,6 @@ class MainActivity : AppCompatActivity() {
             val datePickerDialog = DatePickerDialog(
                 this,
                 DatePickerDialog.OnDateSetListener { datePicker, i, i2, i3 ->
-                    Log.d("i", i.toString()) // yıl
-                    Log.d("i2", (i2 + 1).toString()) // ay
-                    Log.d("i3", i3.toString()) // gün
                     var ay = "${i2 + 1}"
                     if (i2 + i < 10) {
                         ay = "0${i2 + 1}"
@@ -71,19 +66,10 @@ class MainActivity : AppCompatActivity() {
             if (selectDate != "" && etTitle.text.toString() != "" && etDetail.text.toString() != "") {
                 val status =
                     db.addNote(etTitle.text.toString(), etDetail.text.toString(), selectDate)
-                Log.d("status", status.toString())
                 etTitle.setText("")
                 etDetail.setText("")
                 selectDate = ""
 
-                /* val noteList = db.allNote()
-                 val titleList = ArrayList<String>()
-                 for (note in noteList) {
-                     titleList.add(note.title)
-                 }
-
-                 val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, titleList)
-                 lvNotes.adapter = adapter*/
                 getNotes()
 
             } else {
@@ -104,7 +90,6 @@ class MainActivity : AppCompatActivity() {
         for (note in noteList) {
             titleList.add(note.title)
         }
-
         val adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, titleList)
         lvNotes.adapter = adapter
     }

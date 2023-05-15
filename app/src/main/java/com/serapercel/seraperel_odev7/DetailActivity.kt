@@ -33,8 +33,6 @@ class DetailActivity : AppCompatActivity() {
 
         btnDelete.setOnClickListener {
             db.deleteNote(note.nid)
-            val intent = Intent(this, MainActivity::class.java)
-            startActivity(intent)
             finish()
         }
 
